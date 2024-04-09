@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-            android:name="net.creditagricole.TestApp"
+            android:name="net.bankingapp.TestApp"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
@@ -12,7 +12,7 @@
             android:supportsRtl="true">
 
         <activity
-                android:name="net.creditagricole.ui.MainActivity"
+                android:name="net.bankingapp.ui.MainActivity"
                 android:exported="true"
                 android:screenOrientation="portrait">
             <intent-filter>

@@ -18,7 +18,7 @@ kotlin {
 }
 
 android {
-    namespace = "net.creditagricole.domain"
+    namespace = "net.bankingapp.domain"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
