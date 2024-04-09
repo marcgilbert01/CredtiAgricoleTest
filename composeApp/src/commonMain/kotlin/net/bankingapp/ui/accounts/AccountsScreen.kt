@@ -39,7 +39,7 @@ import net.bankingapp.domain.accounts.entities.Account
 import net.bankingapp.domain.accounts.entities.Bank
 import net.bankingapp.ui.common.formatAmount
 import androidx.compose.runtime.State
-import androidx.compose.ui.Alignment.Companion.Center
+import net.bankingapp.ui.common.LoadingScreen
 
 @Composable
 fun AccountsScreen(
@@ -50,19 +50,18 @@ fun AccountsScreen(
 
     when (val uiState = accountsUiState.value) {
         is AccountsUiState.DisplayingAccounts -> {
-            displayingAccountsView(uiState)
+            displayingAccountsView(uiState, event)
         }
         AccountsUiState.Loading -> {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Center) {
-                Text("Loading...", style = caTypography.h1)
-            }
+            LoadingScreen()
         }
     }
 }
 
 @Composable
 private fun displayingAccountsView(
-    uiState: AccountsUiState.DisplayingAccounts
+    uiState: AccountsUiState.DisplayingAccounts,
+    event: (AccountsEvent) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -84,7 +83,9 @@ private fun displayingAccountsView(
         uiState.mainBank.forEach {
             BankMenuItem(
                 bank = it,
-                onClicked = { }
+                onClicked = { accountId ->
+                    event(AccountsEvent.OnAccountClicked(accountId))
+                }
             )
         }
         Text(text = "Autres Banques",
@@ -96,7 +97,9 @@ private fun displayingAccountsView(
         uiState.otherBanks.forEach {
             BankMenuItem(
                 bank = it,
-                onClicked = { }
+                onClicked = { accountId ->
+                    event(AccountsEvent.OnAccountClicked(accountId))
+                }
             )
         }
     }

@@ -30,6 +30,12 @@ class AccountsViewModel(
     }
 
     override fun handleEvent(event: AccountsEvent) {
-        TODO("Not yet implemented")
+        coroutineScope.launch {
+            when (event) {
+                is AccountsEvent.OnAccountClicked -> {
+                    sendAction { AccountsAction.NavigateToAccountDetails(event.accountId) }
+                }
+            }
+        }
     }
 }
