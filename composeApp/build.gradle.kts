@@ -32,7 +32,7 @@ kotlin {
             implementation(libs.androidx.material)
             implementation(project(":domain"))
             implementation(project(":data"))
-            implementation(project(":api"))
+            implementation(project(":creditAgricoleApi"))
             implementation(project(":designSystem"))
         }
         commonTest.dependencies {

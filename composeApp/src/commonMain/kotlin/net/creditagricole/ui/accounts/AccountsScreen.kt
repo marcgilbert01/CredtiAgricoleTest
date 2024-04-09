@@ -3,8 +3,10 @@ package net.creditagricole.ui.accounts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.SpaceBetween
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -14,6 +16,7 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,14 +38,24 @@ import net.creditagricole.designSystem.tokens.caTypography
 import net.creditagricole.domain.accounts.entities.Account
 import net.creditagricole.domain.accounts.entities.Bank
 import net.creditagricole.ui.common.formatAmount
+import androidx.compose.runtime.State
+import androidx.compose.ui.Alignment.Companion.Center
 
 @Composable
 fun AccountsScreen(
-    uiState: AccountsUiState
+    viewModel: AccountsViewModel
 ) {
-    when (uiState) {
+    val accountsUiState: State<AccountsUiState> = viewModel.uiState.collectAsState(AccountsUiState.Loading)
+    val event: (AccountsEvent) -> Unit = { viewModel.handleEvent(it) }
+
+    when (val uiState = accountsUiState.value) {
         is AccountsUiState.DisplayingAccounts -> {
             displayingAccountsView(uiState)
+        }
+        AccountsUiState.Loading -> {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Center) {
+                Text("Loading...", style = caTypography.h1)
+            }
         }
     }
 }
@@ -68,7 +81,7 @@ private fun displayingAccountsView(
                 .padding(start = caSpacing.screenHorizontalMargin, top = caSpacing.listVerticalSpacing, bottom = caSpacing.listVerticalSpacing)
                 .fillMaxWidth()
         )
-        uiState.creditAgricole.forEach {
+        uiState.mainBank.forEach {
             BankMenuItem(
                 bank = it,
                 onClicked = { }
