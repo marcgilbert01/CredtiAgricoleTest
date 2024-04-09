@@ -13,7 +13,7 @@ data class CaColors (
 
 
 val caColors = CaColors(
-    primary = Color(0xFF6200EE),
+    primary = Color.DarkGray,
     primaryVariant = Color(0xFF3700B3),
     secondary = Color.LightGray,
     secondaryVariant = Color(0xFF018786),

@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.sp
 data class CaTypography(
     val h1: TextStyle,
     val h2: TextStyle,
+    val h3: TextStyle,
     val subtitle1: TextStyle,
     val body1: TextStyle,
     val body2: TextStyle,
@@ -23,6 +24,12 @@ val caTypography = CaTypography(
         fontWeight = FontWeight.Bold
     ),
     h2 = TextStyle(
+        fontSize = 24.sp,
+        letterSpacing = 0.015.sp,
+        lineHeight = 36.sp,
+        fontWeight = FontWeight.Bold
+    ),
+    h3 = TextStyle(
         fontSize = 16.sp,
         letterSpacing = 0.015.sp,
         lineHeight = 72.sp,
@@ -39,12 +46,14 @@ val caTypography = CaTypography(
         fontSize = 16.sp,
         letterSpacing = 0.015.sp,
         lineHeight = 24.sp,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.Bold,
+        color = caColors.primary
     ),
     body2 = TextStyle(
         fontSize = 14.sp,
         letterSpacing = 0.015.sp,
         lineHeight = 20.sp,
         fontWeight = FontWeight.Bold,
+        color = caColors.secondary
     ),
 )

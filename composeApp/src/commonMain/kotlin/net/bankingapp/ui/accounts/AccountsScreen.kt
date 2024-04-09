@@ -3,10 +3,8 @@ package net.bankingapp.ui.accounts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.SpaceBetween
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -75,7 +73,7 @@ private fun displayingAccountsView(
             modifier = Modifier.padding(caSpacing.screenHorizontalMargin)
         )
         Text(text = "Credit Agricole",
-            style = caTypography.h2,
+            style = caTypography.h3,
             modifier = Modifier
                 .padding(start = caSpacing.screenHorizontalMargin, top = caSpacing.listVerticalSpacing, bottom = caSpacing.listVerticalSpacing)
                 .fillMaxWidth()
@@ -89,7 +87,7 @@ private fun displayingAccountsView(
             )
         }
         Text(text = "Autres Banques",
-            style = caTypography.h2,
+            style = caTypography.h3,
             modifier = Modifier
                 .padding(start = caSpacing.screenHorizontalMargin, top = caSpacing.listVerticalSpacing, bottom = caSpacing.listVerticalSpacing)
                 .fillMaxWidth()

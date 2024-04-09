@@ -14,5 +14,5 @@ val caSpacing = CaSpacing(
     smallSpacing = 4.dp,
     screenHorizontalMargin = 24.dp,
     listVerticalSpacing = 16.dp,
-    listItemHeight = 60.dp
+    listItemHeight = 80.dp
 )
