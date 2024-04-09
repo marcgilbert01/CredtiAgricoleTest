@@ -29,9 +29,11 @@ kotlin {
             implementation(compose.components.resources)
             implementation(libs.koin.core)
             implementation(libs.koin.androidx.workmanager)
+            implementation(libs.androidx.material)
             implementation(project(":domain"))
             implementation(project(":data"))
             implementation(project(":api"))
+            implementation(project(":designSystem"))
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
