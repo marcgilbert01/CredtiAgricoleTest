@@ -1,11 +1,8 @@
-This is a Kotlin Multiplatform project targeting Android, Desktop.
+This Test app is a kotlin multiplatform project targeting Android, Desktop (jvm) and Ios.
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
-
-
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+Known issues:
+1- Navigation is all handled by a view model and could be improved by using a navigation library.
+2- Regarding the view models. 
+* on Android they all live in the main activity
+* on Desktop they live for the all lifecycle of the app
+* on Ios they also live for the all lifecycle of the app (which is likely not the best approach)
