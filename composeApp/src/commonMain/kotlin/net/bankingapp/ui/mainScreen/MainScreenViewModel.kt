@@ -18,6 +18,12 @@ class MainScreenViewModel : BaseViewModel<MainScreenEvent, MainScreenUiState, Ac
                         MainScreenUiState.AccountDetails(event.accountId)
                     }
                 }
+
+                MainScreenEvent.OnNavigateToMyAccounts -> {
+                    setUiState {
+                        MainScreenUiState.Accounts
+                    }
+                }
             }
         }
     }

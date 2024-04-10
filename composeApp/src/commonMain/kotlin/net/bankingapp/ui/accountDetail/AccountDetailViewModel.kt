@@ -2,12 +2,11 @@ package net.bankingapp.ui.accountDetail
 
 import kotlinx.coroutines.launch
 import net.bankingapp.domain.accounts.usecase.GetAccountUseCase
-import net.bankingapp.ui.common.Action
 import net.bankingapp.ui.common.BaseViewModel
 
 class AccountDetailViewModel(
     private val getAccountUseCase: GetAccountUseCase
-) : BaseViewModel<AccountDetailEvent, AccountDetailUiState, Action>() {
+) : BaseViewModel<AccountDetailEvent, AccountDetailUiState, AccountDetailAction>() {
 
     init {
         setInitialState(AccountDetailUiState.Loading)
@@ -16,7 +15,9 @@ class AccountDetailViewModel(
     override fun handleEvent(event: AccountDetailEvent) {
         coroutineScope.launch {
             when (event) {
-                AccountDetailEvent.OnBackButtonClicked -> TODO()
+                AccountDetailEvent.OnUpButtonClicked -> {
+                    sendAction { AccountDetailAction.NavigateToMyAccounts }
+                }
                 is AccountDetailEvent.OnScreenLoad -> {
                     getAndDisplayAccountDetail(event.accountId)
                 }

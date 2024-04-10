@@ -20,6 +20,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import net.bankingapp.designSystem.atoms.UpButton
 import net.bankingapp.designSystem.tokens.caSpacing
 import net.bankingapp.designSystem.tokens.caTypography
 import net.bankingapp.domain.accounts.entities.Account
@@ -52,36 +53,42 @@ fun AccountDetailScreen(
                 ErrorScreen(uiState.message)
             }
             is AccountDetailUiState.DisplayingAccountDetail -> {
-                AccountDetailView(uiState.account)
+                AccountDetailView(uiState.account, event)
             }
         }
     }
-
 }
 
 @Composable
-fun AccountDetailView(account: Account) {
-    LazyColumn {
-        item {
-            Text(text = account.balance.formatAmount(),
-                style = caTypography.h1,
-                modifier = Modifier
-                    .padding(caSpacing.screenHorizontalMargin)
-                    .fillMaxWidth(),
-                textAlign = TextAlign.Center
-            )
+fun AccountDetailView(account: Account, event: (AccountDetailEvent) -> Unit) {
+    Column {
+        UpButton("Mes Comptes") {
+            event(AccountDetailEvent.OnUpButtonClicked)
         }
-        item {
-            Text(text = account.name,
-                style = caTypography.h2,
-                modifier = Modifier
-                    .padding(caSpacing.screenHorizontalMargin)
-                    .fillMaxWidth(),
-                textAlign = TextAlign.Center
-            )
-        }
-        items(account.transactions) { transaction ->
-            TransactionItemView(transaction)
+        LazyColumn {
+            item {
+                Text(
+                    text = account.balance.formatAmount(),
+                    style = caTypography.h1,
+                    modifier = Modifier
+                        .padding(caSpacing.screenHorizontalMargin)
+                        .fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
+            }
+            item {
+                Text(
+                    text = account.name,
+                    style = caTypography.h2,
+                    modifier = Modifier
+                        .padding(caSpacing.screenHorizontalMargin)
+                        .fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
+            }
+            items(account.transactions) { transaction ->
+                TransactionItemView(transaction)
+            }
         }
     }
 }
