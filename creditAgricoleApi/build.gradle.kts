@@ -19,6 +19,7 @@ kotlin {
     }
 
     sourceSets {
+        val desktopMain by getting
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
         }
@@ -29,6 +30,9 @@ kotlin {
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
+        }
+        desktopMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
         }
     }
 }
