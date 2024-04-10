@@ -10,6 +10,16 @@ plugins {
 kotlin {
     androidTarget()
     jvm("desktop")
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "ComposeApp"
+            isStatic = true
+        }
+    }
 
     sourceSets {
         val desktopMain by getting
@@ -28,8 +38,6 @@ kotlin {
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
             implementation(libs.koin.core)
-            implementation(libs.koin.androidx.workmanager)
-            implementation(libs.androidx.material)
             implementation(project(":domain"))
             implementation(project(":data"))
             implementation(project(":creditAgricoleApi"))
@@ -38,7 +46,6 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
             implementation(libs.kotlin.test.junit)
-            implementation(libs.mockk)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

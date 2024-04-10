@@ -1,20 +1,11 @@
-package net.freshclouds.domain.utils
+package net.bankingapp.domain.utils
 
-import net.bankingapp.domain.utils.DateUtils
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
+import kotlinx.datetime.LocalDate
 
 class DateUtilsImpl : DateUtils {
 
-    private val dateTimeFormat = "yyyy-MM-dd"
-
-    override fun convertLongToLocalReadableString(timeStamp: Long): String {
-        return LocalDateTime
-            .ofInstant(Instant.ofEpochMilli(timeStamp), ZoneOffset.systemDefault())
-            .atZone(ZoneId.systemDefault())
-            .format(DateTimeFormatter.ofPattern(dateTimeFormat))
+    override fun convertEpochSecondsToLocalReadableDateString(timeStamp: Long): String {
+        val localDate = LocalDate.fromEpochDays((timeStamp/ 60/ 60/ 24).toInt())
+        return "${localDate.dayOfMonth}/${localDate.monthNumber}/${localDate.year}"
     }
 }

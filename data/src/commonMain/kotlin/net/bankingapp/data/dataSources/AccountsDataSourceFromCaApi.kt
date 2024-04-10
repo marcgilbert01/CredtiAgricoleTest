@@ -7,7 +7,6 @@ import net.bankingapp.caApi.services.accounts.CaOperationData
 import net.bankingapp.domain.accounts.entities.Account
 import net.bankingapp.domain.accounts.entities.Bank
 import net.bankingapp.domain.accounts.entities.Transaction
-import java.text.NumberFormat
 
 class AccountsDataSourceFromCaApi(
     private val caAccountsService: CaAccountsService
@@ -38,6 +37,6 @@ fun CaAccountData.toDomain() = Account(
 fun CaOperationData.toDomain() = Transaction(
     id = this.id,
     title = this.title,
-    amount = NumberFormat.getNumberInstance().parse(this.amount).toDouble(),
+    amount = this.amount,
     date = this.date.toLong(),
 )

@@ -2,6 +2,6 @@ package net.bankingapp.domain.utils
 
 interface DateUtils {
 
-    fun convertLongToLocalReadableString(timeStamp: Long): String
+    fun convertEpochSecondsToLocalReadableDateString(timeStamp: Long): String
 
 }

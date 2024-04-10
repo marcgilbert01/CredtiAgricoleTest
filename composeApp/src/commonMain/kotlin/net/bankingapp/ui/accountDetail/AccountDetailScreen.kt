@@ -107,7 +107,7 @@ fun TransactionItemView(transaction: Transaction) {
             Text(text = transaction.title, style = caTypography.body1)
             Text(text = transaction.date.convertToDate(), style = caTypography.body1, modifier = Modifier.padding(start = caSpacing.screenHorizontalMargin))
         }
-        Text(text = transaction.amount.formatAmount(),
+        Text(text = transaction.amount,
             style = caTypography.body2,
             modifier = Modifier.padding(end = caSpacing.screenHorizontalMargin)
         )
