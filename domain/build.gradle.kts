@@ -18,9 +18,15 @@ kotlin {
     }
 
     sourceSets {
+        val desktopTest by getting
         commonMain.dependencies {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.datetime)
+        }
+        desktopTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlin.test.junit)
+            implementation(libs.mockk)
         }
     }
 }
