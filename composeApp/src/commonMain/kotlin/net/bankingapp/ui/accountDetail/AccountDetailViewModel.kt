@@ -1,19 +1,20 @@
 package net.bankingapp.ui.accountDetail
 
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import net.bankingapp.domain.accounts.usecase.GetAccountUseCase
-import net.bankingapp.ui.common.BaseViewModel
+import net.bankingapp.ui.common.BaseViewModel2
 
 class AccountDetailViewModel(
     private val getAccountUseCase: GetAccountUseCase
-) : BaseViewModel<AccountDetailEvent, AccountDetailUiState, AccountDetailAction>() {
+) : BaseViewModel2<AccountDetailEvent, AccountDetailUiState, AccountDetailAction>() {
 
     init {
         setInitialState(AccountDetailUiState.Loading)
     }
 
     override fun handleEvent(event: AccountDetailEvent) {
-        coroutineScope.launch {
+        viewModelScope.launch {
             when (event) {
                 AccountDetailEvent.OnUpButtonClicked -> {
                     sendAction { AccountDetailAction.NavigateToMyAccounts }

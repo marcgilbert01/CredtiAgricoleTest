@@ -1,6 +1,7 @@
 package net.bankingapp
 
 import android.app.Application
+import net.bankingapp.ui.common.koinInstance
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -10,6 +11,8 @@ class TestApp : Application() {
         startKoin {
             androidContext(this@TestApp)
             modules(koinAndroid, koinCommon)
+        }.let {
+            koinInstance = it.koin
         }
     }
 }

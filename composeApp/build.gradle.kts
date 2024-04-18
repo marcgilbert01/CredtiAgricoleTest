@@ -33,11 +33,12 @@ kotlin {
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
-            implementation(compose.material)
+            implementation(compose.material3)
             implementation(compose.ui)
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
             implementation(libs.koin.core)
+            implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(project(":domain"))
             implementation(project(":data"))
             implementation(project(":creditAgricoleApi"))

@@ -1,17 +1,18 @@
 package net.bankingapp.ui.mainScreen
 
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import net.bankingapp.ui.common.Action
-import net.bankingapp.ui.common.BaseViewModel
+import net.bankingapp.ui.common.BaseViewModel2
 
-class MainScreenViewModel : BaseViewModel<MainScreenEvent, MainScreenUiState, Action>() {
+class MainScreenViewModel : BaseViewModel2<MainScreenEvent, MainScreenUiState, Action>() {
 
     init {
         setInitialState(MainScreenUiState.Accounts)
     }
 
     override fun handleEvent(event: MainScreenEvent) {
-        coroutineScope.launch {
+        viewModelScope.launch {
             when (event) {
                 is MainScreenEvent.OnNavigateToAccountDetail -> {
                     setUiState {

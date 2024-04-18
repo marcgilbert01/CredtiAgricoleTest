@@ -10,10 +10,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -32,10 +33,13 @@ import net.bankingapp.domain.accounts.entities.Account
 import net.bankingapp.domain.accounts.entities.Bank
 import net.bankingapp.ui.common.LoadingScreen
 import net.bankingapp.ui.common.formatAmount
+import net.bankingapp.ui.common.viewModel
+import net.bankingapp.ui.mainScreen.MainScreenEvent
 
 @Composable
 fun AccountsScreen(
-    viewModel: AccountsViewModel
+    viewModel: AccountsViewModel = viewModel(AccountsViewModel::class),
+    mainScreenEvent: (MainScreenEvent) -> Unit
 ) {
     val accountsUiState: State<AccountsUiState> = viewModel.uiState.collectAsState(AccountsUiState.Loading)
     val event: (AccountsEvent) -> Unit = { viewModel.handleEvent(it) }
@@ -46,6 +50,15 @@ fun AccountsScreen(
         }
         AccountsUiState.Loading -> {
             LoadingScreen()
+        }
+    }
+    LaunchedEffect(viewModel.action) {
+        viewModel.action.collect{
+            when(it){
+                is AccountsAction.NavigateToAccountDetails -> {
+                    mainScreenEvent(MainScreenEvent.OnNavigateToAccountDetail(it.accountId))
+                }
+            }
         }
     }
 }

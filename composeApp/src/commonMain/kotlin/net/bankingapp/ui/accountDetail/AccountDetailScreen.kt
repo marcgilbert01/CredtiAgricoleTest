@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
@@ -28,12 +28,15 @@ import net.bankingapp.domain.accounts.entities.Transaction
 import net.bankingapp.ui.common.ErrorScreen
 import net.bankingapp.ui.common.LoadingScreen
 import net.bankingapp.ui.common.formatAmount
+import net.bankingapp.ui.common.viewModel
+import net.bankingapp.ui.mainScreen.MainScreenEvent
 import net.bankingapp.utils.convertToDate
 
 @Composable
 fun AccountDetailScreen(
-    viewModel: AccountDetailViewModel,
-    accountId: String
+    viewModel: AccountDetailViewModel = viewModel(AccountDetailViewModel::class),
+    accountId: String,
+    mainScreenEvent: (MainScreenEvent) -> Unit
 ) {
 
     val accountDetailUiState: State<AccountDetailUiState> = viewModel.uiState.collectAsState(AccountDetailUiState.Loading)
@@ -54,6 +57,15 @@ fun AccountDetailScreen(
             }
             is AccountDetailUiState.DisplayingAccountDetail -> {
                 AccountDetailView(uiState.account, event)
+            }
+        }
+    }
+    LaunchedEffect(viewModel.action) {
+        viewModel.action.collect{
+            when(it){
+                is AccountDetailAction.NavigateToMyAccounts -> {
+                    mainScreenEvent(MainScreenEvent.OnNavigateToMyAccounts)
+                }
             }
         }
     }
