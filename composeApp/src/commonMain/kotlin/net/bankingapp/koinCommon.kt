@@ -7,9 +7,27 @@ import net.bankingapp.data.dataSources.AccountsDataSourceFromCaApi
 import net.bankingapp.domain.accounts.repo.AccountsRepo
 import net.bankingapp.domain.accounts.usecase.GetAccountUseCase
 import net.bankingapp.domain.accounts.usecase.GetAccountsUseCase
+import net.bankingapp.ui.accountDetail.AccountDetailViewModel
+import net.bankingapp.ui.accounts.AccountsViewModel
+import net.bankingapp.ui.mainScreen.MainScreenViewModel
 import org.koin.dsl.module
 
 val koinCommon = module {
+
+    //////////////////////////////////////////////////////////////////
+    // view models
+    factory {
+        MainScreenViewModel()
+    }
+
+    factory {
+        AccountsViewModel(get())
+    }
+
+    factory {
+        AccountDetailViewModel(get())
+    }
+
 
     //////////////////////////////////////////////////////////////////
     // use cases

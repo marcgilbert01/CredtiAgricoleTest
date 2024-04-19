@@ -4,11 +4,11 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import net.bankingapp.domain.accounts.usecase.GetAccountsUseCase
-import net.bankingapp.ui.common.BaseViewModel2
+import net.bankingapp.ui.common.BaseViewModel
 
 class AccountsViewModel(
     private val getAccountsUseCase: GetAccountsUseCase
-) : BaseViewModel2<AccountsEvent, AccountsUiState, AccountsAction>() {
+) : BaseViewModel<AccountsEvent, AccountsUiState, AccountsAction>() {
 
     init {
         setInitialState(AccountsUiState.Loading)

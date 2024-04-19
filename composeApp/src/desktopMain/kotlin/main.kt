@@ -1,14 +1,13 @@
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import net.bankingapp.koinCommon
-import net.bankingapp.koinDesktop
 import net.bankingapp.ui.App
 import net.bankingapp.ui.common.koinInstance
 import org.koin.core.context.startKoin
 
 fun main() {
     startKoin {
-        modules(koinDesktop, koinCommon)
+        modules(koinCommon)
     }.let {
         koinInstance = it.koin
     }

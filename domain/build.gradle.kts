@@ -20,7 +20,6 @@ kotlin {
     sourceSets {
         val desktopTest by getting
         commonMain.dependencies {
-            implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.datetime)
         }
         desktopTest.dependencies {

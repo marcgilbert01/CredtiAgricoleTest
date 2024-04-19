@@ -23,14 +23,10 @@ var koinInstance: Koin? = null
 val VIEW_MODEL_FACTORY = viewModelFactory {
     initializer { MainScreenViewModel() }
     initializer {
-        AccountsViewModel(
-            getAccountsUseCase = koinInstance!!.inject<GetAccountsUseCase>().value
-        )
+        koinInstance!!.inject<AccountsViewModel>().value
     }
     initializer {
-        AccountDetailViewModel(
-            getAccountUseCase = koinInstance!!.inject<GetAccountUseCase>().value
-        )
+        koinInstance!!.inject<AccountDetailViewModel>().value
     }
 }
 

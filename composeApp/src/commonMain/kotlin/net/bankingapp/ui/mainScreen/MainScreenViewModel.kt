@@ -3,9 +3,9 @@ package net.bankingapp.ui.mainScreen
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import net.bankingapp.ui.common.Action
-import net.bankingapp.ui.common.BaseViewModel2
+import net.bankingapp.ui.common.BaseViewModel
 
-class MainScreenViewModel : BaseViewModel2<MainScreenEvent, MainScreenUiState, Action>() {
+class MainScreenViewModel : BaseViewModel<MainScreenEvent, MainScreenUiState, Action>() {
 
     init {
         setInitialState(MainScreenUiState.Accounts)
