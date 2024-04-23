@@ -10,18 +10,14 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import net.bankingapp.domain.accounts.usecase.GetAccountUseCase
-import net.bankingapp.domain.accounts.usecase.GetAccountsUseCase
 import net.bankingapp.ui.accountDetail.AccountDetailViewModel
 import net.bankingapp.ui.accounts.AccountsViewModel
-import net.bankingapp.ui.mainScreen.MainScreenViewModel
 import org.koin.core.Koin
 import kotlin.reflect.KClass
 
 var koinInstance: Koin? = null
 
 val VIEW_MODEL_FACTORY = viewModelFactory {
-    initializer { MainScreenViewModel() }
     initializer {
         koinInstance!!.inject<AccountsViewModel>().value
     }

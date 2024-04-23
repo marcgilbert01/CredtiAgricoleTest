@@ -20,6 +20,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.navigation.NavHostController
 import net.bankingapp.designSystem.atoms.UpButton
 import net.bankingapp.designSystem.tokens.caSpacing
 import net.bankingapp.designSystem.tokens.caTypography
@@ -29,14 +30,13 @@ import net.bankingapp.ui.common.ErrorScreen
 import net.bankingapp.ui.common.LoadingScreen
 import net.bankingapp.ui.common.formatAmount
 import net.bankingapp.ui.common.viewModel
-import net.bankingapp.ui.mainScreen.MainScreenEvent
 import net.bankingapp.utils.convertToDate
 
 @Composable
 fun AccountDetailScreen(
     viewModel: AccountDetailViewModel = viewModel(AccountDetailViewModel::class),
     accountId: String,
-    mainScreenEvent: (MainScreenEvent) -> Unit
+    navHostController: NavHostController
 ) {
 
     val accountDetailUiState: State<AccountDetailUiState> = viewModel.uiState.collectAsState(AccountDetailUiState.Loading)
@@ -45,18 +45,21 @@ fun AccountDetailScreen(
         event(AccountDetailEvent.OnScreenLoad(accountId))
     }
 
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        when (val uiState = accountDetailUiState.value) {
-            is AccountDetailUiState.Loading -> {
-                LoadingScreen()
-            }
-            is AccountDetailUiState.Error -> {
-                ErrorScreen(uiState.message)
-            }
-            is AccountDetailUiState.DisplayingAccountDetail -> {
-                AccountDetailView(uiState.account, event)
+    Column {
+        Text("Account id = $accountId")
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            when (val uiState = accountDetailUiState.value) {
+                is AccountDetailUiState.Loading -> {
+                    LoadingScreen()
+                }
+                is AccountDetailUiState.Error -> {
+                    ErrorScreen(uiState.message)
+                }
+                is AccountDetailUiState.DisplayingAccountDetail -> {
+                    AccountDetailView(uiState.account, event)
+                }
             }
         }
     }
@@ -64,7 +67,7 @@ fun AccountDetailScreen(
         viewModel.action.collect{
             when(it){
                 is AccountDetailAction.NavigateToMyAccounts -> {
-                    mainScreenEvent(MainScreenEvent.OnNavigateToMyAccounts)
+                    navHostController.navigateUp()
                 }
             }
         }

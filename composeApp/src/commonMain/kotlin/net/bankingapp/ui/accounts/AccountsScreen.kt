@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import net.bankingapp.designSystem.tokens.caColors
 import net.bankingapp.designSystem.tokens.caSpacing
 import net.bankingapp.designSystem.tokens.caTypography
@@ -34,12 +35,12 @@ import net.bankingapp.domain.accounts.entities.Bank
 import net.bankingapp.ui.common.LoadingScreen
 import net.bankingapp.ui.common.formatAmount
 import net.bankingapp.ui.common.viewModel
-import net.bankingapp.ui.mainScreen.MainScreenEvent
+import net.bankingapp.ui.mainScreen.Screens
 
 @Composable
 fun AccountsScreen(
     viewModel: AccountsViewModel = viewModel(AccountsViewModel::class),
-    mainScreenEvent: (MainScreenEvent) -> Unit
+    navHostController: NavHostController
 ) {
     val accountsUiState: State<AccountsUiState> = viewModel.uiState.collectAsState(AccountsUiState.Loading)
     val event: (AccountsEvent) -> Unit = { viewModel.handleEvent(it) }
@@ -56,7 +57,7 @@ fun AccountsScreen(
         viewModel.action.collect{
             when(it){
                 is AccountsAction.NavigateToAccountDetails -> {
-                    mainScreenEvent(MainScreenEvent.OnNavigateToAccountDetail(it.accountId))
+                    navHostController.navigate(route = "${Screens.AccountDetails.name}/${it.accountId}")
                 }
             }
         }

@@ -1,27 +1,45 @@
 package net.bankingapp.ui.mainScreen
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import net.bankingapp.ui.accountDetail.AccountDetailScreen
 import net.bankingapp.ui.accounts.AccountsScreen
-import net.bankingapp.ui.common.viewModel
+
+enum class Screens {
+    Accounts,
+    AccountDetails
+}
 
 @Composable
 fun MainScreen(
-    mainScreenViewModel: MainScreenViewModel = viewModel(MainScreenViewModel::class)
+    navController: NavHostController = rememberNavController()
 ) {
-
-    val mainScreenUiState: State<MainScreenUiState> = mainScreenViewModel.uiState.collectAsState(MainScreenUiState.Accounts)
-    val event: (MainScreenEvent) -> Unit = { mainScreenViewModel.handleEvent(it) }
-
-    when (val uiState = mainScreenUiState.value) {
-        MainScreenUiState.Accounts -> {
-            AccountsScreen(mainScreenEvent = event)
+    NavHost(
+        navController = navController,
+        startDestination = Screens.Accounts.name,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        composable(route = Screens.Accounts.name) {
+            AccountsScreen(navHostController = navController)
         }
-
-        is MainScreenUiState.AccountDetails -> {
-            AccountDetailScreen(accountId =  uiState.accountId, mainScreenEvent = event)
+        composable(
+            route = "${Screens.AccountDetails.name}/{accountId}",
+            arguments = listOf(navArgument("accountId") {
+                type = NavType.StringType
+                nullable = true
+            })
+        ) {navBackStackEntry ->
+            AccountDetailScreen(
+                accountId = navBackStackEntry.arguments?.getString("accountId")!!,
+                navHostController = navController
+            )
         }
     }
 }

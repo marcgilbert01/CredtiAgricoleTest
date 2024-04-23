@@ -39,6 +39,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(libs.koin.core)
             implementation(libs.androidx.lifecycle.viewmodel.compose)
+            implementation(libs.androidx.navigation.compose)
             implementation(project(":domain"))
             implementation(project(":data"))
             implementation(project(":creditAgricoleApi"))
